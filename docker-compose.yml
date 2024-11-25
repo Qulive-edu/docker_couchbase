@@ -14,7 +14,6 @@ services:
       - "11210:11210"  # Порт для подключения
     volumes:
       - couchbase_data:/opt/couchbase/var
-
   app:
     build: .
     container_name: couchbase_app
@@ -27,6 +26,8 @@ services:
       - COUCHBASE_BUCKET=default
       - COUCHBASE_USER=admin
       - COUCHBASE_PASSWORD=password
+
+
 
 volumes:
   couchbase_data:
