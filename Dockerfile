@@ -1,17 +1,19 @@
-# Используем официальный образ Python
-FROM python:3.9
-COPY . .
-# Устанавливаем рабочую директорию
-WORKDIR /app
+# Используем официальный образ Couchbase
+FROM couchbase:latest
 
-# Копируем файлы проекта в контейнер
+# Устанавливаем переменные окружения для начальной настройки
+ENV CB_USERNAME=admin \
+    CB_PASSWORD=password
 
+# Копируем скрипт начальной настройки (опционально, если требуется автоматизация)
+COPY init.sh /init.sh
+RUN chmod +x /init.sh
 
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
+# Указываем рабочую директорию (опционально)
+WORKDIR /opt/couchbase
 
-# Открываем порт
-EXPOSE 5000
+# Открываем необходимые порты
+EXPOSE 8091 8092 8093 11210 11211
 
-# Запускаем приложение
-CMD ["python", "run.py"]
+# Выполняем команду запуска Couchbase
+CMD ["couchbase-server"]
