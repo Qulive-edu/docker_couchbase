@@ -1,6 +1,6 @@
 # Используем официальный образ Python
 FROM python:3.9
-COPY . /app
+COPY .
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
