@@ -16,4 +16,4 @@ curl -v -X POST http://127.0.0.1:8091/pools/default/buckets \
     -d bucketType=couchbase \
     -d ramQuotaMB=100
 
-echo "Couchbase настроен!"
+echo "Couchbase up"
