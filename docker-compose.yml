@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  couchbase:
+    image: couchbase:enterprise-7.0
+    container_name: couchbase
+    environment:
+      - COUCHBASE_USERNAME=admin
+      - COUCHBASE_PASSWORD=password
+      - COUCHBASE_BUCKET=default
+    ports:
+      - "8091:8091"  # Веб-интерфейс Couchbase
+      - "8092:8092"  # Сервис для поиска
+      - "11210:11210"  # Порт для подключения
+    volumes:
+      - couchbase_data:/opt/couchbase/var
+
+  app:
+    build: .
+    container_name: couchbase_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - couchbase
+    environment:
+      - COUCHBASE_HOST=couchbase
+      - COUCHBASE_BUCKET=default
+      - COUCHBASE_USER=admin
+      - COUCHBASE_PASSWORD=password
+
+volumes:
+  couchbase_data:
