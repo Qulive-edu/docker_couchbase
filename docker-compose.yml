@@ -15,7 +15,8 @@ services:
     volumes:
       - couchbase_data:/opt/couchbase/var
   app:
-    build: .
+    build: 
+      context: .
     container_name: couchbase_app
     ports:
       - "5000:5000"
